@@ -1,0 +1,7 @@
+
+.dccache
+htmlresultstr
+newstr
+.cache/
+dist/
+node_modules/
