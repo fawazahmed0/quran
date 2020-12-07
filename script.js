@@ -21,36 +21,34 @@ async function oneTimeFunc () {
   // Editions JSON from quran api
   [editionsJSON] = await getLinksJSON([editionsLink + '.min.json'])
   // Create the dropdown
-  createDropdown();
-  // Sets the cookie value or default edition
-  getSetCookies();
-  let chapverse = [];
-if(window.location.hash!==''){
-
- chapverse = window.location.hash.substring(1).split(':');
-$('#chapter option[value="' + chapverse[0] + '"]').prop('selected', true)
-
-
-
-}
-await showTranslations();
-if(chapverse.length>1){
-  window.location = window.location.hash
-  $('#verse option[value="' + window.location.hash + '"]').prop('selected', true)
+  createDropdown()
+  // Sets the cookie values to settings
+  getSetCookies()
+  // Stores the chapter & verse from link hash , eg: #4:3
+  let chapterVerse = []
+  if (window.location.hash !== '') {
+    chapterVerse = window.location.hash.substring(1).split(':')
+    $('#chapter option[value="' + chapterVerse[0] + '"]').prop('selected', true)
   }
+  // show the translations on cookie/link selected values
+  await showTranslations()
 
+  // scroll to specific verse if it existed in link hash
+  if (chapterVerse.length > 1) {
+    window.location = window.location.hash
+    $('#verse option[value="' + window.location.hash + '"]').prop('selected', true)
+  }
+}
 
-
-  
+// Set to default edition
+function setDefaultEdition () {
+  $('#translationdropdown option[value="' + defaultEdition + '"]').prop('selected', true)
 }
 
 function getSetCookies () {
   const editionCookie = Cookies.get('editions')
-  if (editionCookie !== undefined)
-   { JSON.parse(editionCookie).map(e => $('#translationdropdown option[value="' + e + '"]').prop('selected', true)) }
-else
-// Set default values
-$('#translationdropdown option[value="'+defaultEdition+'"]').prop('selected', true) 
+  if (editionCookie !== undefined) { JSON.parse(editionCookie).map(e => $('#translationdropdown option[value="' + e + '"]').prop('selected', true)) } else { setDefaultEdition() }
+
   const chapterCookie = Cookies.get('chapter')
   if (chapterCookie !== undefined) { $('#chapter option[value="' + chapterCookie + '"]').prop('selected', true) }
 }
@@ -105,7 +103,7 @@ window.showTranslations = async function showTranslations () {
   for (let i = 1; i <= chaplength[chapterNo - 1]; i++) {
     for (const [chapter, edName] of chapEdHolder) {
       const id = chapterNo + ':' + i
-      $('#verseslist').append('<li class="list-group-item p-2 ' + edName + '" dir="auto" id="' + id + '">' + i + ' - ' + chapter[i-1] + '</li>')
+      $('#verseslist').append('<li class="list-group-item p-2 ' + edName + '" dir="auto" id="' + id + '">' + i + ' - ' + chapter[i - 1] + '</li>')
     }
   }
 
