@@ -12,6 +12,8 @@ import Cookies from 'js-cookie'
 const apiLink = 'https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1'
 const editionsLink = apiLink + '/editions'
 
+const defaultEdition = 'eng-miraneesuddin'
+
 let editionsJSON
 
 // call this only once
@@ -20,14 +22,19 @@ async function oneTimeFunc () {
   [editionsJSON] = await getLinksJSON([editionsLink + '.min.json'])
   // Create the dropdown
   createDropdown()
+
+
   getSetCookies()
   await showTranslations()
 }
 
 function getSetCookies () {
   const editionCookie = Cookies.get('editions')
-  if (editionCookie !== undefined) { JSON.parse(editionCookie).map(e => $('#translationdropdown option[value="' + e + '"]').prop('selected', true)) }
-
+  if (editionCookie !== undefined)
+   { JSON.parse(editionCookie).map(e => $('#translationdropdown option[value="' + e + '"]').prop('selected', true)) }
+else
+// Set default values
+$('#translationdropdown option[value="'+defaultEdition+'"]').prop('selected', true) 
   const chapterCookie = Cookies.get('chapter')
   if (chapterCookie !== undefined) { $('#chapter option[value="' + chapterCookie + '"]').prop('selected', true) }
 }
@@ -82,7 +89,7 @@ window.showTranslations = async function showTranslations () {
   for (let i = 1; i <= chaplength[chapterNo - 1]; i++) {
     for (const [chapter, edName] of chapEdHolder) {
       const id = chapterNo + ':' + i
-      $('#verseslist').append('<li class="list-group-item p-2 text-right ' + edName + '" dir="auto" id="' + id + '">' + i + ' - ' + chapter[i] + '</li>')
+      $('#verseslist').append('<li class="list-group-item p-2 ' + edName + '" dir="auto" id="' + id + '">' + i + ' - ' + chapter[i-1] + '</li>')
     }
   }
 
