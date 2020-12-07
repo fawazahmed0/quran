@@ -7,6 +7,7 @@ import 'regenerator-runtime/runtime'
 // https://github.com/parcel-bundler/parcel/issues/333#issuecomment-504552272
 // https://www.npmjs.com/package/jquery
 import $ from 'jquery'
+import Cookies from 'js-cookie'
 
 const apiLink = 'https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1'
 const editionsLink = apiLink + '/editions'
@@ -19,7 +20,16 @@ async function oneTimeFunc () {
   [editionsJSON] = await getLinksJSON([editionsLink + '.min.json'])
   // Create the dropdown
   createDropdown()
-  // This func is called only once, next time it is just an empty block of code
+  getSetCookies()
+  await showTranslations()
+}
+
+function getSetCookies () {
+  const editionCookie = Cookies.get('editions')
+  if (editionCookie !== undefined) { JSON.parse(editionCookie).map(e => $('#translationdropdown option[value="' + e + '"]').prop('selected', true)) }
+
+  const chapterCookie = Cookies.get('chapter')
+  if (chapterCookie !== undefined) { $('#chapter option[value="' + chapterCookie + '"]').prop('selected', true) }
 }
 
 // Creates and add listing to the dropdown based on editions.json
@@ -49,11 +59,19 @@ window.showTranslations = async function showTranslations () {
   $('#versescolumn').append('<ul id="verseslist" class="card list-group list-group-flush"></ul>')
 
   const selectedValues = $('#translationdropdown').val().filter(elem => !/^\s*$/.test(elem))
+
   // Holds chapter & editionName
   let chapEdHolder = []
   const chapterNo = $('#chapter').val()
   const linksArr = []
   if (chapterNo === '') { return }
+
+  // Set the cookies
+  if (selectedValues.length > 0) {
+    Cookies.set('editions', JSON.stringify(selectedValues), { expires: 1000, path: '' })
+    Cookies.set('chapter', chapterNo, { expires: 1000, path: '' })
+  }
+
   for (const edName of selectedValues) {
     const linkFormed = editionsLink + '/' + edName + '/' + chapterNo + '.min.json'
     linksArr.push(linkFormed)
@@ -64,7 +82,7 @@ window.showTranslations = async function showTranslations () {
   for (let i = 1; i <= chaplength[chapterNo - 1]; i++) {
     for (const [chapter, edName] of chapEdHolder) {
       const id = chapterNo + ':' + i
-      $('#verseslist').append('<li class="list-group-item p-2 ' + edName + '" dir="auto" id="' + id + '">' + i + ' - ' + chapter[i] + '</li>')
+      $('#verseslist').append('<li class="list-group-item p-2 text-right ' + edName + '" dir="auto" id="' + id + '">' + i + ' - ' + chapter[i] + '</li>')
     }
   }
 
