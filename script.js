@@ -21,11 +21,27 @@ async function oneTimeFunc () {
   // Editions JSON from quran api
   [editionsJSON] = await getLinksJSON([editionsLink + '.min.json'])
   // Create the dropdown
-  createDropdown()
+  createDropdown();
+  // Sets the cookie value or default edition
+  getSetCookies();
+  let chapverse = [];
+if(window.location.hash!==''){
+
+ chapverse = window.location.hash.substring(1).split(':');
+$('#chapter option[value="' + chapverse[0] + '"]').prop('selected', true)
 
 
-  getSetCookies()
-  await showTranslations()
+
+}
+await showTranslations();
+if(chapverse.length>1){
+  window.location = window.location.hash
+  $('#verse option[value="' + window.location.hash + '"]').prop('selected', true)
+  }
+
+
+
+  
 }
 
 function getSetCookies () {
