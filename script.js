@@ -99,10 +99,11 @@ window.showTranslations = async function showTranslations () {
   }
   const chaptersArr = await getChapterArr(linksArr)
   chapEdHolder = chaptersArr.map((e, i) => [e, selectedValues[i]])
-
+  // offset by these verses due for better scrolling due to fixed header
+let offset = 2
   for (let i = 1; i <= chaplength[chapterNo - 1]; i++) {
     for (const [chapter, edName] of chapEdHolder) {
-      const id = chapterNo + ':' + i
+      const id = chapterNo + ':' + (i+offset)
       $('#verseslist').append('<li class="list-group-item p-2 ' + edName + '" dir="auto" id="' + id + '">' + i + ' - ' + chapter[i - 1] + '</li>')
     }
   }
