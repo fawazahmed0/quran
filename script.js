@@ -98,22 +98,32 @@ window.showTranslations = async function showTranslations () {
     linksArr.push(linkFormed)
   }
   const chaptersArr = await getChapterArr(linksArr)
-  chapEdDirHolder = chaptersArr.map((e, i) => [e, selectedValues[i], $('#translationdropdown option[value="' + selectedValues[i] + '"]').attr('data-dir')])
+  chapEdDirHolder = chaptersArr.map((e, i) => [e, selectedValues[i], $('#translationdropdown option[value="' + selectedValues[i] + '"]').attr('data-dir'), $('#translationdropdown option[value="' + selectedValues[i] + '"]').text()])
   // offset by these verses due for better scrolling due to fixed header
   const offset = 1
   // create empty element with verse 1 id , so to avoid issues due to offset
   $('#verseslist').append('<span id="' + chapterNo + ':1"> </span>')
   let classValues
   for (let i = 1; i <= chaplength[chapterNo - 1]; i++) {
-    for (const [chapter, edName, dir] of chapEdDirHolder) {
+    for (const [chapter, edName, dir, dropDownText] of chapEdDirHolder) {
       const id = chapterNo + ':' + (i + offset)
       if (dir === 'rtl') { classValues = edName + ' text-right list-group-item p-2' } else { classValues = edName + ' list-group-item p-2' }
-
-      $('#verseslist').append('<li class="' + classValues + '" dir="auto" id="' + id + '">' + i + ' - ' + chapter[i - 1] + '</li>')
+      $('#verseslist').append('<li class="' + classValues + '" dir="auto" id="' + id + '"><span class="badge bg-light text-dark" data-bs-toggle="tooltip" title="'+dropDownText+'">'+i+'</span>' +  ' - ' + chapter[i - 1] + '</li>')
+     
     }
   }
 
+  initializeTooltip()
   createVerseDropDown()
+}
+
+function initializeTooltip(){
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+
+
 }
 
 function createVerseDropDown () {
