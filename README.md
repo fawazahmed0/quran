@@ -1,7 +1,7 @@
 # quran
 Read Quran in 90+ Languages
 
-Link to site:
+Link to site:<br>
 https://fawazahmed0.github.io/quran
 
 To open chapter 5:<br>
