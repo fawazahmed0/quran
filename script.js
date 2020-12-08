@@ -119,6 +119,7 @@ window.showTranslations = async function showTranslations () {
   if (selectedValues.length > 0) {
     Cookies.set('editions', JSON.stringify(selectedValues), { expires: 1000, path: '' })
     Cookies.set('chapter', chapterNo, { expires: 1000, path: '' })
+    showSpinningWheel ()
   }
 
   for (const edName of selectedValues) {
@@ -131,6 +132,7 @@ window.showTranslations = async function showTranslations () {
   const offset = 1
   // create empty element with verse 1 id , so to avoid issues due to offset
   $('#verseslist').append('<span id="' + chapterNo + ':1"> </span>')
+  removeSpinningWheel()
   let classValues
   for (let i = 1; i <= chaplength[chapterNo - 1]; i++) {
     for (const [chapter, edName, dir, dropDownText] of chapEdDirHolder) {
@@ -176,6 +178,24 @@ async function getLinksJSON (urls) {
     urls.map(url => fetch(url).then(response => response.json()))
   ).catch(console.error)
 }
+
+// Show as loading spinning wheel,only if there isn't any other
+function showSpinningWheel () {
+  if ($('#spinningwheel').length === 0) {
+    $('#versescolumn').prepend(`<div  id="spinningwheel">
+    <div class="text-center">
+      <div class="spinner-border m-5" role="status">
+      </div>
+      </div>
+      </div>
+      `)
+  }
+}
+
+function removeSpinningWheel () {
+  $('#spinningwheel').remove()
+}
+
 
 // Creating line to [chapter,verseNo] mappings
 // Array containing number of verses in each chapters
