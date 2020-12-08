@@ -102,13 +102,13 @@ window.showTranslations = async function showTranslations () {
   // offset by these verses due for better scrolling due to fixed header
 let offset = 1
     // create empty element with verse 1 id , so to avoid issues due to offset
-    $('#verseslist').append('<li id="' + chapterNo + ':1"></li>')
+    $('#verseslist').append('<span id="' + chapterNo + ':1"> </span>')
 
   for (let i = 1; i <= chaplength[chapterNo - 1]; i++) {
 
     for (const [chapter, edName] of chapEdHolder) {
       const id = chapterNo + ':' + (i+offset)
-      $('#verseslist').append('<li class="list-group-item p-2 ' + edName + '" dir="auto" id="' + id + '">' + i + ' - ' + chapter[i - 1] + '</li>')
+      $('#verseslist').append('<li class="'+edName+' list-group-item p-2" dir="auto" id="' + id + '">' + i + ' - ' + chapter[i - 1] + '</li>')
     }
   }
 
@@ -118,7 +118,7 @@ let offset = 1
 function createVerseDropDown () {
   $('#verse').empty()
 
-  $('#verse').append('<option selected>Verse</option>')
+  $('#verse').append('<option value="" selected>Verse</option>')
   const chapterNo = $('#chapter').val()
   for (let i = 1; i <= chaplength[chapterNo - 1]; i++) {
     const anchor = '#' + chapterNo + ':' + i
