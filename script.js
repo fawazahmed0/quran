@@ -107,7 +107,7 @@ window.showTranslations = async function showTranslations () {
   for (let i = 1; i <= chaplength[chapterNo - 1]; i++) {
     for (const [chapter, edName, dir] of chapEdDirHolder) {
       const id = chapterNo + ':' + (i + offset)
-      if (dir == 'rtl') { classValues = edName + ' text-right list-group-item p-2' } else { classValues = edName + ' list-group-item p-2' }
+      if (dir === 'rtl') { classValues = edName + ' text-right list-group-item p-2' } else { classValues = edName + ' list-group-item p-2' }
 
       $('#verseslist').append('<li class="' + classValues + '" dir="auto" id="' + id + '">' + i + ' - ' + chapter[i - 1] + '</li>')
     }
