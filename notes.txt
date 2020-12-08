@@ -1,0 +1,7 @@
+
+Workflow for website:
+For testing site locally:
+parcel index.html --https
+
+For deploying:
+parcel build index.html -d docs --public-url ./
