@@ -17,131 +17,141 @@
 
     <style>
         @font-face {
-          font-family: 'Noto Sans Arabic';
-          src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/noto-sans-arabic-regular.woff2') format('woff2');
+            font-family: 'Noto Sans Arabic';
+            src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/noto-sans-arabic-regular.woff2') format('woff2');
         }
-        li[class^="ara-"]:not(.ara-quranindopak):not(.ara-quranbazzi):not(.ara-quranqumbul):not(.ara-quranshouba):not(.ara-quransoosinonun):not(.ara-quranwarsh):not(.ara-qurandoori):not(.ara-qurandoorinonun):not(.ara-quranqaloon):not(.ara-qurannastaleeqn)   {
-                  
+
+        li[class^="ara-"]:not(.ara-quranindopak):not(.ara-quranbazzi):not(.ara-quranqumbul):not(.ara-quranshouba):not(.ara-quransoosinonun):not(.ara-quranwarsh):not(.ara-qurandoori):not(.ara-qurandoorinonun):not(.ara-quranqaloon):not(.ara-qurannastaleeqn) {
+
             font-family: 'Noto Sans Arabic', serif;
-          
-          }
-        @font-face {
-          font-family: 'Nastaleeq';
-          src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/nastaleeq-v10-full.woff2') format('woff2');
+
         }
+
+        @font-face {
+            font-family: 'Nastaleeq';
+            src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/nastaleeq-v10-full.woff2') format('woff2');
+        }
+
         .ara-quranindopak {
             font-family: 'Nastaleeq', serif;
-          }
-        
-        @font-face {
-          font-family: 'Nastaleeq Non Unicode';
-          src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/hafs-nastaleeq-ver10.woff2') format('woff2');
         }
-        .ara-qurannastaleeqn
-        {
+
+        @font-face {
+            font-family: 'Nastaleeq Non Unicode';
+            src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/hafs-nastaleeq-ver10.woff2') format('woff2');
+        }
+
+        .ara-qurannastaleeqn {
             font-family: 'Nastaleeq Non Unicode', serif;
-        
-          }
-        @font-face {
-          font-family: 'Bazzi';
-          src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/bazzi-v7-full.woff2') format('woff2');
+
         }
+
+        @font-face {
+            font-family: 'Bazzi';
+            src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/bazzi-v7-full.woff2') format('woff2');
+        }
+
         .ara-quranbazzi {
             font-family: 'Bazzi', serif;
-        
-          }
-        @font-face {
-          font-family: 'Doori';
-          src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/doori-v8-full.woff2') format('woff2');
+
         }
-        .ara-qurandoori
-        {
+
+        @font-face {
+            font-family: 'Doori';
+            src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/doori-v8-full.woff2') format('woff2');
+        }
+
+        .ara-qurandoori {
             font-family: 'Doori', serif;
-        
-          }
-        @font-face {
-          font-family: 'Doori Non Unicode';
-          src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/uthmanic-doori1-ver08.woff2') format('woff2');
+
         }
-        
-        .ara-qurandoorinonun
-        {
+
+        @font-face {
+            font-family: 'Doori Non Unicode';
+            src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/uthmanic-doori1-ver08.woff2') format('woff2');
+        }
+
+        .ara-qurandoorinonun {
             font-family: 'Doori Non Unicode', serif;
-        
-          }
-    
-        @font-face {
-          font-family: 'Qaloon';
-          src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/qaloon-v8-full.woff2') format('woff2');
+
         }
-        
-        .ara-quranqaloon
-        {
+
+        @font-face {
+            font-family: 'Qaloon';
+            src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/qaloon-v8-full.woff2') format('woff2');
+        }
+
+        .ara-quranqaloon {
             font-family: 'Qaloon', serif;
-        
-          }
-        
-        
-        @font-face {
-          font-family: 'Qumbul';
-          src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/qumbul-v7-full.woff2') format('woff2');
+
         }
-        .ara-quranqumbul
-        {
+
+
+        @font-face {
+            font-family: 'Qumbul';
+            src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/qumbul-v7-full.woff2') format('woff2');
+        }
+
+        .ara-quranqumbul {
             font-family: 'Qumbul', serif;
-        
-          }
-        @font-face {
-          font-family: 'Shouba';
-          src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/shouba-v7-full.woff2') format('woff2');
+
         }
-        .ara-quranshouba
-        {
+
+        @font-face {
+            font-family: 'Shouba';
+            src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/shouba-v7-full.woff2') format('woff2');
+        }
+
+        .ara-quranshouba {
             font-family: 'Shouba', serif;
-        
-          }
-        @font-face {
-          font-family: 'Soosi';
-          src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/soosi-v8-full.woff2') format('woff2');
+
         }
-        .ara-quransoosi
-        {
+
+        @font-face {
+            font-family: 'Soosi';
+            src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/soosi-v8-full.woff2') format('woff2');
+        }
+
+        .ara-quransoosi {
             font-family: 'Soosi', serif;
-          
-          }
-        @font-face {
-          font-family: 'Soosi Non Unicode';
-          src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/uthmanic-soosi1-ver08.woff2') format('woff2');
+
         }
-        .ara-quransoosinonun
-        {
+
+        @font-face {
+            font-family: 'Soosi Non Unicode';
+            src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/uthmanic-soosi1-ver08.woff2') format('woff2');
+        }
+
+        .ara-quransoosinonun {
             font-family: 'Soosi Non Unicode', serif;
-         
-          }
+
+        }
+
         @font-face {
-          font-family: 'Warsh';
-          src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/warsh-v8-full.woff2') format('woff2');
+            font-family: 'Warsh';
+            src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/fonts/warsh-v8-full.woff2') format('woff2');
         }
-        .ara-quranwarsh
-        {
+
+        .ara-quranwarsh {
             font-family: 'Warsh', serif;
-           
-          }
-          @font-face {
-          font-family: 'Burmese';
-          src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran@main/fonts/burmese.woff2') format('woff2');
+
         }
-          .mya-hashimtinmyint { 
+
+        @font-face {
+            font-family: 'Burmese';
+            src: url('https://cdn.jsdelivr.net/gh/fawazahmed0/quran@main/fonts/burmese.woff2') format('woff2');
+        }
+
+        .mya-hashimtinmyint {
             font-family: 'Burmese', serif;
-           
-          }
-          .mya-ghazimohammadha{ 
+
+        }
+
+        .mya-ghazimohammadha {
             font-family: 'Burmese', serif;
-           
-          }
-    
-        
-        </style>
+
+        }
+    </style>
 </head>
 
 <body>

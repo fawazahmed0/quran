@@ -10,32 +10,11 @@ import $ from 'jquery'
 import Cookies from 'js-cookie'
 
 const apiLink = 'https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1'
-const editionsLink = apiLink + '/editions';
-const fontsLink = apiLink + '/fonts';
+const editionsLink = apiLink + '/editions'
 
 const defaultEdition = 'eng-miraneesuddin'
 
 let editionsJSON
-
-let fontEdition={
-  'ara-quranindopak': 'nastaleeq-v10-full',
-  'ara-qurannastaleeqn': 'hafs-nastaleeq-ver10',
-  'ara-quranbazzi': 'bazzi-v7-full',
-  'ara-qurandoori': 'doori-v8-full',
-  'ara-qurandoorinonun': 'uthmanic-doori1-ver08',
-  'ara-quranuthmanihaf': 'hafs-uthmanic-v14-full',
-  'ara-quranqaloon': 'qaloon-v8-full',
-  'ara-quranqumbul': 'qumbul-v7-full',
-  'ara-quranshouba': 'shouba-v7-full',
-  'ara-quransoosi': 'soosi-v8-full',
-  'ara-quransoosinonun': 'uthmanic-soosi1-ver08',
-  'ara-quranwarsh': 'warsh-v8-full'
-};
-
-for(const [key , value] of Object.entries(fontEdition))
-      fontEdition[key] = fontsLink+'/'+value+'.woff2'
-
-
 
 // call this only once
 async function oneTimeFunc () {
@@ -121,15 +100,14 @@ window.showTranslations = async function showTranslations () {
   const chaptersArr = await getChapterArr(linksArr)
   chapEdHolder = chaptersArr.map((e, i) => [e, selectedValues[i]])
   // offset by these verses due for better scrolling due to fixed header
-let offset = 1
-    // create empty element with verse 1 id , so to avoid issues due to offset
-    $('#verseslist').append('<span id="' + chapterNo + ':1"> </span>')
+  const offset = 1
+  // create empty element with verse 1 id , so to avoid issues due to offset
+  $('#verseslist').append('<span id="' + chapterNo + ':1"> </span>')
 
   for (let i = 1; i <= chaplength[chapterNo - 1]; i++) {
-
     for (const [chapter, edName] of chapEdHolder) {
-      const id = chapterNo + ':' + (i+offset)
-      $('#verseslist').append('<li class="'+edName+' list-group-item p-2" dir="auto" id="' + id + '">' + i + ' - ' + chapter[i - 1] + '</li>')
+      const id = chapterNo + ':' + (i + offset)
+      $('#verseslist').append('<li class="' + edName + ' list-group-item p-2" dir="auto" id="' + id + '">' + i + ' - ' + chapter[i - 1] + '</li>')
     }
   }
 
@@ -182,7 +160,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
   initVar = oneTimeFunc()
 })
 
-
+/*
 async function getFont(url) {
 
   let fontName = url.replace(/\.[^\.]*$/,"").replace(/.*\//,"")
@@ -197,6 +175,23 @@ async function getFont(url) {
 
 }
 
+const fontsLink = apiLink + '/fonts';
+let fontEdition={
+  'ara-quranindopak': 'nastaleeq-v10-full',
+  'ara-qurannastaleeqn': 'hafs-nastaleeq-ver10',
+  'ara-quranbazzi': 'bazzi-v7-full',
+  'ara-qurandoori': 'doori-v8-full',
+  'ara-qurandoorinonun': 'uthmanic-doori1-ver08',
+  'ara-quranuthmanihaf': 'hafs-uthmanic-v14-full',
+  'ara-quranqaloon': 'qaloon-v8-full',
+  'ara-quranqumbul': 'qumbul-v7-full',
+  'ara-quranshouba': 'shouba-v7-full',
+  'ara-quransoosi': 'soosi-v8-full',
+  'ara-quransoosinonun': 'uthmanic-soosi1-ver08',
+  'ara-quranwarsh': 'warsh-v8-full'
+};
 
+for(const [key , value] of Object.entries(fontEdition))
+      fontEdition[key] = fontsLink+'/'+value+'.woff2'
 
-
+*/
