@@ -10,11 +10,32 @@ import $ from 'jquery'
 import Cookies from 'js-cookie'
 
 const apiLink = 'https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1'
-const editionsLink = apiLink + '/editions'
+const editionsLink = apiLink + '/editions';
+const fontsLink = apiLink + '/fonts';
 
 const defaultEdition = 'eng-miraneesuddin'
 
 let editionsJSON
+
+let fontEdition={
+  'ara-quranindopak': 'nastaleeq-v10-full',
+  'ara-qurannastaleeqn': 'hafs-nastaleeq-ver10',
+  'ara-quranbazzi': 'bazzi-v7-full',
+  'ara-qurandoori': 'doori-v8-full',
+  'ara-qurandoorinonun': 'uthmanic-doori1-ver08',
+  'ara-quranuthmanihaf': 'hafs-uthmanic-v14-full',
+  'ara-quranqaloon': 'qaloon-v8-full',
+  'ara-quranqumbul': 'qumbul-v7-full',
+  'ara-quranshouba': 'shouba-v7-full',
+  'ara-quransoosi': 'soosi-v8-full',
+  'ara-quransoosinonun': 'uthmanic-soosi1-ver08',
+  'ara-quranwarsh': 'warsh-v8-full'
+};
+
+for(const [key , value] of Object.entries(fontEdition))
+      fontEdition[key] = fontsLink+'/'+value+'.woff2'
+
+
 
 // call this only once
 async function oneTimeFunc () {
@@ -160,5 +181,22 @@ let initVar
 window.addEventListener('DOMContentLoaded', (event) => {
   initVar = oneTimeFunc()
 })
+
+
+async function getFont(url) {
+
+  let fontName = url.replace(/\.[^\.]*$/,"").replace(/.*\//,"")
+
+  const font = new FontFace(fontName, 'url('+url+')');
+  // wait for font to be loaded
+  await font.load();
+  // add font to document
+  document.fonts.add(font);
+
+  return fontName
+
+}
+
+
 
 
