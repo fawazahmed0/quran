@@ -62,12 +62,12 @@ async function createDropdown () {
     // check edition name ends with -la, then
     if (/\-la$/i.test(value.name)) { dropdownText = value.language + ' Latin - ' + value.author } else if (/\-lad$/i.test(value.name)) { dropdownText = value.language + ' LatinD - ' + value.author } else { dropdownText = value.language + ' - ' + value.author }
 
-    langEdition.push([dropdownText, value.name])
+    langEdition.push([dropdownText, value.name, value.direction])
   }
   // sort by dropdowntext
   langEdition.sort()
 
-  for (const [value, key] of langEdition) { $('#translationdropdown').append('<option value="' + key + '">' + value + '</option>') }
+  for (const [value, key, dir] of langEdition) { $('#translationdropdown').append('<option value="' + key + '" data-dir="' + dir + '">' + value + '</option>') }
 
   // Create chapter dropdown
   for (let i = 1; i <= 114; i++) { $('#chapter').append('<option value="' + i + '">' + i + '</option>') }
@@ -82,7 +82,7 @@ window.showTranslations = async function showTranslations () {
   const selectedValues = $('#translationdropdown').val().filter(elem => !/^\s*$/.test(elem))
 
   // Holds chapter & editionName
-  let chapEdHolder = []
+  let chapEdDirHolder = []
   const chapterNo = $('#chapter').val()
   const linksArr = []
   if (chapterNo === '') { return }
@@ -98,16 +98,18 @@ window.showTranslations = async function showTranslations () {
     linksArr.push(linkFormed)
   }
   const chaptersArr = await getChapterArr(linksArr)
-  chapEdHolder = chaptersArr.map((e, i) => [e, selectedValues[i]])
+  chapEdDirHolder = chaptersArr.map((e, i) => [e, selectedValues[i], $('#translationdropdown option[value="' + selectedValues[i] + '"]').attr('data-dir')])
   // offset by these verses due for better scrolling due to fixed header
   const offset = 1
   // create empty element with verse 1 id , so to avoid issues due to offset
   $('#verseslist').append('<span id="' + chapterNo + ':1"> </span>')
-
+  let classValues
   for (let i = 1; i <= chaplength[chapterNo - 1]; i++) {
-    for (const [chapter, edName] of chapEdHolder) {
+    for (const [chapter, edName, dir] of chapEdDirHolder) {
       const id = chapterNo + ':' + (i + offset)
-      $('#verseslist').append('<li class="' + edName + ' list-group-item p-2" dir="auto" id="' + id + '">' + i + ' - ' + chapter[i - 1] + '</li>')
+      if (dir == 'rtl') { classValues = edName + ' text-right list-group-item p-2' } else { classValues = edName + ' list-group-item p-2' }
+
+      $('#verseslist').append('<li class="' + classValues + '" dir="auto" id="' + id + '">' + i + ' - ' + chapter[i - 1] + '</li>')
     }
   }
 
@@ -160,7 +162,19 @@ window.addEventListener('DOMContentLoaded', (event) => {
   initVar = oneTimeFunc()
 })
 
+
+
 /*
+function getDirection (str) {
+  const divelem = document.createElement('div')
+  divelem.dir = 'auto'
+  divelem.innerHTML = str
+  divelem.style.display = 'none'
+  document.body.appendChild(divelem)
+  const direction = window.getComputedStyle(divelem).getPropertyValue('direction')
+  divelem.remove()
+  return direction
+}
 async function getFont(url) {
 
   let fontName = url.replace(/\.[^\.]*$/,"").replace(/.*\//,"")
