@@ -22,6 +22,9 @@ To open a specific Editions based on [quran-api editions](https://cdn.jsdelivr.n
 <br>
 https://fawazahmed0.github.io/quran?editions=ara-qurandoori,ara-quranindopak#5:36
 
+#### How it works:
+The website uses [Free Quran API](https://github.com/fawazahmed0/quran-api) to show the translations
+
 ---
 #### Share:
 Please Share this with your family & friends and Star this repo by clicking on [:star: button](#) above [:arrow_upper_right:](#):<br>
