@@ -2,12 +2,12 @@
 
 // Fix issue for parcel/babel, for async await thing for old browser, or only support new browsers with async await functionality
 // https://flaviocopes.com/parcel-regeneratorruntime-not-defined/
-import 'regenerator-runtime/runtime'
+// import 'regenerator-runtime/runtime'
 // Fix issue for parcel jquery script
 // https://github.com/parcel-bundler/parcel/issues/333#issuecomment-504552272
 // https://www.npmjs.com/package/jquery
-import $ from 'jquery'
-import Cookies from 'js-cookie'
+// import $ from 'jquery'
+// import Cookies from 'js-cookie'
 
 const apiLink = 'https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1'
 const editionsLink = apiLink + '/editions'
@@ -23,7 +23,7 @@ async function oneTimeFunc () {
   // Editions JSON from quran api
   [editionsJSON] = await getLinksJSON([editionsLink + '.min.json'])
   // Create the dropdown
-  createDropdown()
+  await createDropdown()
 
   // first set edition, then chapter, then verse
   setInitEditions()
@@ -31,7 +31,19 @@ async function oneTimeFunc () {
   // show the translations on cookie/link selected values
   await window.showTranslations()
   setInitVerse()
+    // Add searchable select
+    $('select').select2({
+      theme: 'bootstrap4',
+    });
+   // In chrome the onchange event on select verse option doesn't work due to select2
+   // So doing that thing again in here
+    $('#verse').on("select2:select", function(e) { 
+     location = location.hash
+   });
+
 }
+
+
 
 function setInitEditions () {
   // Set by url
@@ -215,7 +227,7 @@ const arabicChapters = Object.keys(chaptersJSON)
 const englishChapters = Object.values(chaptersJSON)
 
 // Register Service worker for Add to Home Screen option to work
-if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/service-worker.js') }
+if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./service-worker.js') }
 
 // Call initializer function in the beginning itself, to fetch all necessary JSON's
 let initVar

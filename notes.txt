@@ -4,4 +4,4 @@ For testing site locally:
 parcel index.html --https
 
 For deploying:
-parcel build index.html -d docs --public-url ./
+parcel build index.html --dist-dir docs --public-url ./
