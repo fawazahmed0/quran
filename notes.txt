@@ -1,4 +1,3 @@
-
 Workflow for website:
 For testing site locally:
 parcel index.html --https
