@@ -7,22 +7,22 @@
 
 **In the name of God, who have guided me to do this work and I seek refuge in him, sufficient is God as protector**
 
-Quran translations in 90+ languages is available at:<br> https://fawazahmed0.github.io/quran
+Quran translations in 90+ languages is available at:<br> [fawazahmed0.github.io/quran](https://fawazahmed0.github.io/quran)
 
 You can also install the app from [play store](https://play.google.com/store/apps/details?id=io.github.fawazahmed0.twa)
 
 ---
 #### Usage:
 To open chapter 5:<br>
-https://fawazahmed0.github.io/quran#5
+[fawazahmed0.github.io/quran#5](fawazahmed0.github.io/quran#5)
 
 To open chapter 5 verse 36:<br>
-https://fawazahmed0.github.io/quran#5:36
+[fawazahmed0.github.io/quran#5:36](https://fawazahmed0.github.io/quran#5:36)
 
 
 To open a specific Editions based on [quran-api editions](https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions.json):
 <br>
-https://fawazahmed0.github.io/quran?editions=ara-qurandoori,ara-quranindopak#5:36
+[fawazahmed0.github.io/quran?editions=ara-qurandoori,ara-quranindopak#5:36](https://fawazahmed0.github.io/quran?editions=ara-qurandoori,ara-quranindopak#5:36)
 
 #### How it works:
 The website uses [Free Quran API](https://github.com/fawazahmed0/quran-api) to show the translations
