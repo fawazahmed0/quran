@@ -9,7 +9,7 @@
 // import $ from 'jquery'
 // import Cookies from 'js-cookie'
 
-const apiLink = 'https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1'
+const apiLink = 'https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@latest'
 const editionsLink = apiLink + '/editions'
 
 const defaultEdition = 'eng-mustafakhattabg'
