@@ -12,7 +12,7 @@
 const apiLink = 'https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1'
 const editionsLink = apiLink + '/editions'
 
-const defaultEdition = 'eng-miraneesuddin'
+const defaultEdition = 'eng-mustafakhattabg'
 
 const CHAPTER_LENGTH = 114
 
