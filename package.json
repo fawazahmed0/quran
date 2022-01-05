@@ -1,0 +1,28 @@
+{
+  "name": "quran",
+  "version": "1.0.0",
+  "scripts": {
+    "serve": "parcel index.html --https",
+    "prebuild": "npx rimraf docs",
+    "build": "parcel build index.html --dist-dir docs --public-url ./"
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fawazahmed0/quran.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fawazahmed0/quran/issues"
+  },
+  "homepage": "https://github.com/fawazahmed0/quran#readme",
+  "devDependencies": {
+    "@parcel/packager-raw-url": "^2.0.1",
+    "@parcel/transformer-webmanifest": "^2.0.1",
+    "parcel": "^2.0.1",
+    "parcel-reporter-static-files-copy": "^1.3.4"
+  }
+}

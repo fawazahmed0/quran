@@ -227,7 +227,7 @@ const arabicChapters = Object.keys(chaptersJSON)
 const englishChapters = Object.values(chaptersJSON)
 
 // Register Service worker for Add to Home Screen option to work
-if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./service-worker.js') }
+if ('serviceWorker' in navigator) { navigator.serviceWorker.register(new URL('./service-worker.js', import.meta.url)) }
 
 // Call initializer function in the beginning itself, to fetch all necessary JSON's
 let initVar
