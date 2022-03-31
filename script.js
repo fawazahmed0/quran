@@ -176,6 +176,18 @@ function createVerseDropDown () {
   }
 }
 
+async function fetchWithFallback(links,obj){
+  let response;
+  for(let link of links)
+  {  try{
+      response = await fetch(link,obj)
+      if(response.ok)
+          return response
+        }catch(e){}
+  }
+   return response
+}
+
 // Fetches the translationLinks and returns the translations in optimized array form
 // Also assigns it to global translationsArr
 async function getChapterArr (linksarr) {
@@ -187,7 +199,7 @@ async function getChapterArr (linksarr) {
 // Get links async i.e in parallel
 async function getLinksJSON (urls) {
   return await Promise.all(
-    urls.map(url => fetch(url).then(response => response.json()))
+    urls.map(url => fetchWithFallback([url.replace(/(\.min\.json|\.json)$/,'')+'.min.json',url.replace(/(\.min\.json|\.json)$/,'')+'.json']).then(response => response.json()))
   ).catch(console.error)
 }
 
