@@ -9,8 +9,8 @@
 // import $ from 'jquery'
 // import Cookies from 'js-cookie'
 
-const apiLink = 'https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@latest'
-const editionsLink = apiLink + '/editions'
+let apiLinks = ["https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/","https://raw.githubusercontent.com/fawazahmed0/quran-api/1/"]
+let extensions = [".min.json",".json"]
 
 const defaultEdition = 'eng-mustafakhattabg'
 
@@ -21,7 +21,7 @@ let editionsJSON
 // call this only once
 async function oneTimeFunc () {
   // Editions JSON from quran api
-  [editionsJSON] = await getLinksJSON([editionsLink + '.min.json'])
+  [editionsJSON] = await getJSON(['editions'])
   // Create the dropdown
   await createDropdown()
 
@@ -124,7 +124,7 @@ window.showTranslations = async function showTranslations () {
   // Holds chapter & editionName
   let chapEdDirHolder = []
   const chapterNo = $('#chapter').val()
-  const linksArr = []
+  const endpointsArr = []
   if (chapterNo === '') { return }
 
   // Set the cookies
@@ -135,10 +135,10 @@ window.showTranslations = async function showTranslations () {
   }
 
   for (const edName of selectedValues) {
-    const linkFormed = editionsLink + '/' + edName + '/' + chapterNo + '.min.json'
-    linksArr.push(linkFormed)
+    const endpoint = 'editions' + '/' + edName + '/' + chapterNo
+    endpointsArr.push(endpoint)
   }
-  const chaptersArr = await getChapterArr(linksArr)
+  const chaptersArr = await getChapterArr(endpointsArr)
   chapEdDirHolder = chaptersArr.map((e, i) => [e, selectedValues[i], $('#translationdropdown option[value="' + selectedValues[i] + '"]').attr('data-dir'), $('#translationdropdown option[value="' + selectedValues[i] + '"]').text()])
   // offset by these verses due for better scrolling due to fixed header
   const offset = 1
@@ -188,18 +188,23 @@ async function fetchWithFallback(links,obj){
    return response
 }
 
+// convert endpoint into multiple urls, including fallback urls
+function getURLs(endpoint){
+  return extensions.map(ext=>apiLinks.map(e=>e+endpoint+ext)).flat()
+}
+
 // Fetches the translationLinks and returns the translations in optimized array form
 // Also assigns it to global translationsArr
-async function getChapterArr (linksarr) {
-  const transJSON = await getLinksJSON(linksarr)
+async function getChapterArr (endpointsArr) {
+  const transJSON = await getJSON(endpointsArr)
   return transJSON.map(e => e.chapter.map(e => e.text))
 }
 
 // https://www.shawntabrizi.com/code/programmatically-fetch-multiple-apis-parallel-using-async-await-javascript/
 // Get links async i.e in parallel
-async function getLinksJSON (urls) {
+async function getJSON (endpoints) {
   return await Promise.all(
-    urls.map(url => fetchWithFallback([url.replace(/(\.min\.json|\.json)$/,'')+'.min.json',url.replace(/(\.min\.json|\.json)$/,'')+'.json']).then(response => response.json()))
+    endpoints.map(endpoint => fetchWithFallback(getURLs(endpoint)).then(response => response.json()))
   ).catch(console.error)
 }
 
