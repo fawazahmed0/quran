@@ -150,7 +150,7 @@ window.showTranslations = async function showTranslations () {
     for (const [chapter, edName, dir, dropDownText] of chapEdDirHolder) {
       const id = chapterNo + ':' + (i + offset)
       classValues = edName + ' list-group-item p-2'
-      $('#verseslist').append('<span class="' + classValues + '" dir="'+dir+'" id="' + id + '"><span class="badge bg-light text-dark" data-bs-toggle="tooltip" title="' + dropDownText + '">' + i + '</span>' + ' - ' + chapter[i - 1] + '</span>')
+      $('#verseslist').append('<div class="' + classValues + '" dir="'+dir+'" id="' + id + '"><span class="badge bg-light text-dark" data-bs-toggle="tooltip" title="' + dropDownText + '">' + i + '</span>' + ' - ' + chapter[i - 1] + '</div>')
     }
   }
 
