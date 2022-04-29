@@ -5,7 +5,7 @@
 </p>
 
 
-**In the name of God, who have guided me to do this work and I seek refuge in him, sufficient is God as protector**
+**In the name of God, who have guided me to do this work**
 
 Quran translations in 90+ languages is available at:<br> [fawazahmed0.github.io/quran](https://fawazahmed0.github.io/quran)
 
