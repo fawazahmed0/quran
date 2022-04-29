@@ -2,9 +2,9 @@
   "name": "quran",
   "version": "1.0.0",
   "scripts": {
-    "serve": "parcel index.html --https",
+    "serve": "parcel code/*.html --https",
     "prebuild": "npx rimraf docs",
-    "build": "parcel build index.html --dist-dir docs --public-url ./"
+    "build": "parcel build code/*.html --dist-dir docs --public-url ./"
   },
   "browserslist": [
     "defaults"
