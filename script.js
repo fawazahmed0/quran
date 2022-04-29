@@ -117,7 +117,7 @@ window.showTranslations = async function showTranslations () {
   // Not a great way to do
   $('#versescolumn').empty()
   // Add the card element, so verses get shown in cards
-  $('#versescolumn').append('<ul id="verseslist" class="card list-group list-group-flush"></ul>')
+  $('#versescolumn').append('<div id="verseslist" class="card list-group list-group-flush"></div>')
 
   const selectedValues = $('#translationdropdown').val().filter(elem => !/^\s*$/.test(elem))
 
@@ -149,8 +149,8 @@ window.showTranslations = async function showTranslations () {
   for (let i = 1; i <= chaplength[chapterNo - 1]; i++) {
     for (const [chapter, edName, dir, dropDownText] of chapEdDirHolder) {
       const id = chapterNo + ':' + (i + offset)
-      if (dir === 'rtl') { classValues = edName + ' text-right list-group-item p-2' } else { classValues = edName + ' list-group-item p-2' }
-      $('#verseslist').append('<li class="' + classValues + '" dir="auto" id="' + id + '"><span class="badge bg-light text-dark" data-bs-toggle="tooltip" title="' + dropDownText + '">' + i + '</span>' + ' - ' + chapter[i - 1] + '</li>')
+      classValues = edName + ' list-group-item p-2'
+      $('#verseslist').append('<span class="' + classValues + '" dir="'+dir+'" id="' + id + '"><span class="badge bg-light text-dark" data-bs-toggle="tooltip" title="' + dropDownText + '">' + i + '</span>' + ' - ' + chapter[i - 1] + '</span>')
     }
   }
 
