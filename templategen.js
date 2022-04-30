@@ -7,14 +7,14 @@ fs.mkdirSync(codeDir, {
     recursive: true
   })
 let ignoreHTMLFiles = ['default.html']
-//let ignoreJSFiles = ['commoncode.js','service-worker.js']
+let ignoreJSFiles = ['commoncode.js','service-worker.js']
 let allFileNames = fs.readdirSync(templateDir)
 // All HTML files,except the ignored html files
 let htmlFileNames = allFileNames.filter(e => !ignoreHTMLFiles.includes(e) && e.endsWith('.html'))
-//let jsFileNames = allFileNames.filter(e => !ignoreJSFiles.includes(e) && e.endsWith('.js'))
+let jsFileNames = allFileNames.filter(e => !ignoreJSFiles.includes(e) && e.endsWith('.js'))
 
 let defaultTemplate = fs.readFileSync(path.join(templateDir, 'default.html')).toString()
-//let commonCode = fs.readFileSync(path.join(templateDir, 'commoncode.js')).toString()
+let commonCode = fs.readFileSync(path.join(templateDir, 'commoncode.js')).toString()
 
 let titles = {'index.html':'Read Quran','data.html':'Quran in multiple languages','single.html':'Verses List'}
 let footerclassobj = {}
@@ -27,14 +27,15 @@ for (let name of htmlFileNames){
     var rendered = Mustache.render(defaultTemplate, { title: titles[name], footerclass: footerclassobj[name] , containercode:innercode, meta:{filename:name,barename:name.replace(/\.[^\.]*$/i,''),head:metaheadignore[name]} });
     fs.writeFileSync(path.join(codeDir,name), rendered)
 }
-/*
+
 for (let name of jsFileNames){
   let innercode = fs.readFileSync(path.join(templateDir,name)).toString() + '\n' + commonCode
  fs.writeFileSync(path.join(codeDir,name), innercode)
 }
-*/
+
 // Copy all files like .js, folders etc to code directory
-allFileNames.filter(e=>!e.endsWith('.html')).forEach(e=>fs.copySync(path.join(templateDir,e), path.join(codeDir,e)))
+allFileNames.filter(e=>!e.endsWith('.html') && !e.endsWith('.js')).concat(ignoreJSFiles).forEach(e=>fs.copySync(path.join(templateDir,e), path.join(codeDir,e)))
+
 
 
 
