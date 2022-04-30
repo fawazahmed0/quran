@@ -1,33 +1,207 @@
 <!doctype html>
-<html lang="en">
-  <head>
+<html class="h-100" lang="en">
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="title" content="Quran in multiple languages | Quran">
+    <meta property="og:title" content="Quran in multiple languages | Quran">
+    <meta name="description" content="Read Quran in 90+ languages" />
+    <meta property="og:description" content="Read Quran in 90+ languages">
+    <meta name="theme-color" content="#0dcaf0">
+    <meta name="msapplication-TileColor" content="#0dcaf0">
+    <meta name="msapplication-TileImage" content="images/quran.jpg">
+    <meta property="og:site_name" content="Quran">
+    <meta name="application-name" content="Quran">
+    <meta name="apple-mobile-web-app-title" content="Quran">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fawazahmed0.github.io/quran/data.html" />
+    <meta property="og:image" content="images/quran.jpg" />
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script type="application/ld+json"> {
+        "@context": "https://schema.org",
+        "@graph": [{
+          "@type": "WebSite",
+          "@id": "https://fawazahmed0.github.io/quran/data.html#website",
+          "url": "https://fawazahmed0.github.io/quran",
+          "name": "Quran"
+        }, 
+          {
+          "@type": "WebPage",
+          "@id": "https://fawazahmed0.github.io/quran/data.html#webpage",
+          "url": "https://fawazahmed0.github.io/quran",
+          "name": "Quran",
+          "description": "Read Quran in 90+ languages"
+        }]
+      } </script>
 
-    <title>Hello, world!</title>
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
-    <script>
-          let params = new URLSearchParams(document.location.search);
-  let chapter = params.get("chapter");
-  let verse = params.get("verse")
+    <script type="application/ld+json"> {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "url": "https://fawazahmed0.github.io/quran",
+      "@id": "https://fawazahmed0.github.io/quran#organization",
+      "name": "Quran",
+      "logo": "icons/android-icon-72x72.png"
+    } </script>
 
+    <script defer type="module">
+        // Register Service worker for Add to Home Screen option to work
+        if ('serviceWorker' in navigator) { navigator.serviceWorker.register(new URL('./service-worker.js', import.meta.url)) }
     </script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-158869197-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+    
+            gtag('config', 'UA-158869197-1');
+        </script>
+
+<script src="commoncode.js"></script>
+    <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
+    <link rel="manifest" href="manifest.webmanifest" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Quran in multiple languages</title>
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+</head>
+
+<body class="d-flex flex-column h-100">
+
+
+    <main class="flex-shrink-0">
+        <div id="mycontainer" class="container mt-3">
+
+            
+<script>
+
+
+async function ready(){
+  document.querySelector('#mycontainer').insertAdjacentHTML('beforeend',searchBar)
+  let params = new URLSearchParams(document.location.search);
+let chapter = params.get("chapter");
+let verse = params.get("verse")
+
+let [editionsJSON, isocodes ]= await getJSON(['editions','isocodes/iso-codes'])
+let edtionsLangArr = Object.values(editionsJSON).map(e => [e.name, e.language, e.direction])
+let linksArr = []
+  // Table of content
+  let tableElem = getElementFromHTML(tableContainer).querySelector('.table')
+   let uniqueLangs = [...new Set(edtionsLangArr.map(e=>e[1]))]
+    for (let lang of uniqueLangs) {
+      let aElem = getElement('a', { href: `#${lang.toLowerCase()}` })
+      aElem.innerText = lang
+      let tr = getElement('tr')
+      let td = getElement('td',{class:'text-center'})
+      td.appendChild(aElem)
+      tr.appendChild(td)
+      tableElem.querySelector('tbody').appendChild(tr)
+    }
+       // Create endpoints for parallel fetch
+    for(let [editionName] of edtionsLangArr)
+      linksArr.push(`editions/${editionName}/${chapter}/${verse}`)
+    
+    document.querySelector('#mycontainer').appendChild(tableElem)
+    let dataArr = await getJSON(linksArr)
+    let count = 0
+    let langCheck = []
+    for (let [editionName, lang, dirval] of edtionsLangArr) {
+            // create language heading only if one doesn't exists
+      if(!langCheck.includes(lang)){
+      let h2 = getElement('h2', { id: lang.toLowerCase(),'class':'text-center' })
+      let aElem = getElement('a',{href:`#${lang.toLowerCase()}`, class:"link-dark"})
+      aElem.innerText = lang
+      h2.appendChild(aElem)
+      document.querySelector('#mycontainer').appendChild(h2)
+      }
+      document.querySelector('#mycontainer').appendChild(getQuranCardElem(dataArr[count],dirval,lang,isocodes))
+
+      langCheck.push(lang)
+      
+      count++;
+    }
+
+
+
+}
+
+document.addEventListener("DOMContentLoaded", ready);
+</script>
+
+        </div>
+
+
+    </main>
+
+
+    <footer class="footer mt-auto  py-3 bg-light">
+        <div class="container">
+
+    
+
+            <div class="mt-3 text-center">
+
+                <a href="https://fawazahmed0.github.io/quran" class="link-primary  mx-1">Home</a>
+                <a href="https://fawazahmed0.github.io/quran/single.html" target="_blank"
+                rel="noopener noreferrer" class="link-primary  mx-1">Single Verse</a>
+                <a href="https://fawazahmed0.github.io/islamic-project" target="_blank"
+                rel="noopener noreferrer" class="link-primary  mx-1">Islamic Apps</a>
+                <a href="mailto:fawazahmed0@hotmail.com?subject=Regarding fawazahmed0.github.io/hadiths" target="_blank"
+                    rel="noopener noreferrer" class="link-primary  mx-1">Contact us</a>
+
+
+
+            </div>
+
+            <span class="float-end">
+                <a href="https://github.com/fawazahmed0/quran" class="mx-1" target="_blank" rel="noopener noreferrer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="black" class="bi bi-github" viewBox="0 0 16 16">
+                      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                    </svg>
+                  </a>
+                <a href="https://play.google.com/store/apps/details?id=io.github.fawazahmed0.twa" class="mx-1" target="_blank" rel="noopener noreferrer">
+                    <img src="icons/google-play-badge.svg" alt="Get it on Google Play" height="70" />
+                </a>
+   
+
+            </span>
+        </div>
+
+    </footer>
 
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     -->
-  </body>
+</body>
+
 </html>
