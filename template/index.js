@@ -18,8 +18,8 @@ const defaultEdition = 'eng-mustafakhattabg'
 let editionsJSON
 
 // call this only once
-async function oneTimeFunc() {
-  document.querySelector('#mycontainer').insertAdjacentHTML('afterbegin', searchBar);
+async function oneTimeFunc () {
+  document.querySelector('#mycontainer').insertAdjacentHTML('afterbegin',searchBar);
   // Editions JSON from quran api
   [editionsJSON] = await getJSON(['editions'])
   // Create the dropdown
@@ -31,21 +31,21 @@ async function oneTimeFunc() {
   // show the translations on cookie/link selected values
   await window.showTranslations()
   setInitVerse()
-  // Add searchable select
-  $('select').select2({
-    theme: 'bootstrap4',
-  });
-  // In chrome the onchange event on select verse option doesn't work due to select2
-  // So doing that thing again in here
-  $('#verse').on("select2:select", function (e) {
-    location = location.hash
-  });
+    // Add searchable select
+    $('select').select2({
+      theme: 'bootstrap4',
+    });
+   // In chrome the onchange event on select verse option doesn't work due to select2
+   // So doing that thing again in here
+    $('#verse').on("select2:select", function(e) { 
+     location = location.hash
+   });
 
 }
 
 
 
-function setInitEditions() {
+function setInitEditions () {
   // Set by url
   const currenturl = new URL(window.location)
   const urlparams = currenturl.searchParams
@@ -65,7 +65,7 @@ function setInitEditions() {
   $('#translationdropdown option[value="' + defaultEdition + '"]').prop('selected', true)
 }
 
-function setInitChapter() {
+function setInitChapter () {
   // Set chapter by url
   if (window.location.hash !== '') {
     const chapterVerse = window.location.hash.substring(1).split(':')
@@ -83,7 +83,7 @@ function setInitChapter() {
   $('#chapter option[value="1"]').prop('selected', true)
 }
 
-function setInitVerse() {
+function setInitVerse () {
   // Stores the chapter & verse from link hash , eg: #4:3
   const chapterVerse = window.location.hash.substring(1).split(':')
   // scroll to specific verse if it existed in link hash
@@ -94,7 +94,7 @@ function setInitVerse() {
 }
 
 // Creates and add listing to the dropdown based on editions.json
-async function createDropdown() {
+async function createDropdown () {
   // Sorts language & author , edition Name
   const langEdition = []
   for (const value of Object.values(editionsJSON)) {
@@ -113,7 +113,7 @@ async function createDropdown() {
   for (let i = 1; i <= CHAPTER_LENGTH; i++) { $('#chapter').append('<option value="' + i + '">' + i + ' - ' + arabicChapters[i - 1] + ' (' + englishChapters[i - 1] + ')</option>') }
 }
 
-window.showTranslations = async function showTranslations() {
+window.showTranslations = async function showTranslations () {
   // Not a great way to do
   $('#versescolumn').empty()
   // Add the card element, so verses get shown in cards
@@ -150,7 +150,7 @@ window.showTranslations = async function showTranslations() {
     for (const [chapter, edName, dir, dropDownText] of chapEdDirHolder) {
       const id = chapterNo + ':' + (i + offset)
       classValues = edName + ' list-group-item p-2'
-      $('#verseslist').append('<div class="' + classValues + '" dir="' + dir + '" id="' + id + '"><span class="badge bg-light text-dark" data-bs-toggle="tooltip" title="' + dropDownText + '">' + i + '</span>' + ' - ' + chapter[i - 1] + '</div>')
+      $('#verseslist').append('<div class="' + classValues + '" dir="'+dir+'" id="' + id + '"><span class="badge bg-light text-dark" data-bs-toggle="tooltip" title="' + dropDownText + '">' + i + '</span>' + ' - ' + chapter[i - 1] + '</div>')
     }
   }
 
@@ -158,14 +158,14 @@ window.showTranslations = async function showTranslations() {
   createVerseDropDown()
 }
 
-function initializeTooltip() {
+function initializeTooltip () {
   const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
   const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
 }
 
-function createVerseDropDown() {
+function createVerseDropDown () {
   $('#verse').empty()
 
   $('#verse').append('<option value="" selected>Verse</option>')
@@ -179,14 +179,14 @@ function createVerseDropDown() {
 
 // Fetches the translationLinks and returns the translations in optimized array form
 // Also assigns it to global translationsArr
-async function getChapterArr(endpointsArr) {
+async function getChapterArr (endpointsArr) {
   const transJSON = await getJSON(endpointsArr)
   return transJSON.map(e => e.chapter.map(e => e.text))
 }
 
 
 // Show as loading spinning wheel,only if there isn't any other
-function showSpinningWheel() {
+function showSpinningWheel () {
   if ($('#spinningwheel').length === 0) {
     $('#versescolumn').prepend(`<div  id="spinningwheel">
     <div class="text-center">
@@ -198,7 +198,7 @@ function showSpinningWheel() {
   }
 }
 
-function removeSpinningWheel() {
+function removeSpinningWheel () {
   $('#spinningwheel').remove()
 }
 

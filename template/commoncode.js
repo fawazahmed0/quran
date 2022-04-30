@@ -1,5 +1,5 @@
-const htmlQuranContainer =
-  `    
+const htmlQuranContainer = 
+`    
 <div class="card text-dark bg-light m-5">
 <div class="card-body">
 <div class="card-text lead m-1"></div>
@@ -11,8 +11,8 @@ const htmlQuranContainer =
 </div>
 `
 
-const tableContainer =
-  `
+const tableContainer = 
+`
 <table class="table table-hover  table-striped">
   <tbody>
 
@@ -20,8 +20,8 @@ const tableContainer =
 </table>
 `
 
-const searchBar =
-  `
+const searchBar = 
+`
 <div class="m-3 d-none">
 <form class="d-flex" onsubmit="beginSearch(); return false">
   <input id="searchquery" class="form-control mr-2" type="search" placeholder="Search Quran Verse" aria-label="Search Quran Verse" />
@@ -57,14 +57,14 @@ const arabicChapters = Object.keys(chaptersJSON)
 const englishChapters = Object.values(chaptersJSON)
 
 
-function capitalize(words) {
-  return words.toString().toLowerCase().replace(/(^\w{1})|(\s+\w{1})/g, match => match.toUpperCase()).trim()
+function capitalize(words){
+return words.toString().toLowerCase().replace(/(^\w{1})|(\s+\w{1})/g, match => match.toUpperCase()).trim()
 }
 
 let htmlparser = new DOMParser();
 
 function getElement(elementName, attributesObj) {
-  if (!attributesObj)
+  if(!attributesObj)
     attributesObj = {}
   let element = document.createElement(elementName);
   for (let [key, value] of Object.entries(attributesObj)) {
@@ -80,7 +80,7 @@ let extensions = [".min.json", ".json"]
 // Get links async i.e in parallel
 async function getJSON(endpoints, links) {
   let returnSingle = false
-  if (!Array.isArray(endpoints)) {
+  if (!Array.isArray(endpoints)){
     endpoints = [endpoints]
     returnSingle = true
   }
@@ -111,25 +111,25 @@ function getURLs(endpoint, links) {
   return extensions.map(ext => links.map(e => e + endpoint + ext)).flat()
 }
 
-function getElementFromHTML(htmlString) {
+function getElementFromHTML(htmlString){
   return htmlparser.parseFromString(htmlString, "text/html");
 }
 
 // pass hadith object & get card element with all hadith info in it
-function getQuranCardElem(quran, editionName, dirval, lang, isocodes) {
+function getQuranCardElem(quran,editionName,dirval,lang,isocodes){
   let lowerLang = lang.toLowerCase()
   let cardElem = getElementFromHTML(htmlQuranContainer).querySelector('.card')
   cardElem.querySelector('.card-text').innerText = quran.text
-  let footerDiv = getElement('div', { class: "card-footer" })
+  let footerDiv = getElement('div',{class:"card-footer"})
   let hrefVal = `quran:${editionName}:${quran.chapter}:${quran.verse}`
-  cardElem.querySelector('#footercontainer').appendChild(footerDiv.cloneNode())
-  Array.from(cardElem.querySelectorAll('.card-footer'))[0].insertAdjacentHTML("beforeend", `<a href=#${hrefVal} class="link-dark text-decoration-none" >Chapter ${quran.chapter} ${arabicChapters[quran.chapter - 1]}, Verse ${quran.verse}</a> <br>`);
-  cardElem.setAttribute('id', hrefVal)
+    cardElem.querySelector('#footercontainer').appendChild(footerDiv.cloneNode())
+  Array.from(cardElem.querySelectorAll('.card-footer'))[0].insertAdjacentHTML("beforeend", `<a href=#${hrefVal} class="link-dark text-decoration-none" >Chapter ${quran.chapter} ${arabicChapters[quran.chapter-1]}, Verse ${quran.verse}</a> <br>`);
+    cardElem.setAttribute('id',hrefVal)
 
-  cardElem.querySelector('.card-text').setAttribute('dir', dirval)
-  cardElem.querySelector('.card-text').setAttribute('lang', isocodes[lowerLang].iso1 ? isocodes[lowerLang].iso1 : isocodes[lowerLang].iso2)
+    cardElem.querySelector('.card-text').setAttribute('dir',dirval)
+    cardElem.querySelector('.card-text').setAttribute('lang',isocodes[lowerLang].iso1 ? isocodes[lowerLang].iso1 : isocodes[lowerLang].iso2)
 
-  return cardElem
+return cardElem
 }
 
 window.beginSearch = function () {
