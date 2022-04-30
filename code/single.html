@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+
+    <script>
+        // fetch https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/info.json to get chap names
+        function getElement(elementName, attributesObj) {
+  if(!attributesObj)
+    attributesObj = {}
+  let element = document.createElement(elementName);
+  for (let [key, value] of Object.entries(attributesObj)) {
+    element.setAttribute(key, value);
+  }
+  return element
+}
+// Array containing number of verses in chapters
+var chaplength = [7,286,200,176,120,165,206,75,129,109,123,111,43,52,99,128,111,110,98,135,112,78,118,64,77,227,93,88,69,60,34,30,73,54,45,83,182,88,75,85,54,53,89,59,37,35,38,29,18,45,60,49,62,55,78,96,29,22,24,13,14,11,11,18,12,12,30,52,52,44,28,28,20,56,40,31,50,40,46,42,29,19,36,25,22,17,19,26,30,20,15,21,11,8,8,19,5,8,8,11,11,8,3,9,5,4,7,3,6,3,5,4,5,6]
+
+var mappings = []
+let UL = getElement('ul', { class: 'list-group' })
+for(i=1;i<=114;i++)
+{
+
+for(j=1;j<=chaplength[i-1];j++){
+  mappings.push([i,j])
+ 
+
+    let LI = getElement('li', { class: 'list-group-item text-center' })
+    let newparams = new URLSearchParams();
+    newparams.set('chapter', i)
+    newparams.set('verse', j)
+    let aElem = getElement('a', { href: `data.html?${newparams.toString()}` })
+    aElem.innerText = `Chapter ${i}, Verse ${j}`
+    LI.appendChild(aElem)
+    UL.appendChild(LI)
+
+
+}
+
+}
+document.body.appendChild(UL)
+    </script>
+
+<ul class="list-group">
+    <li class="list-group-item"><a href=""></a></li>
+  </ul>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
