@@ -22,7 +22,7 @@ const tableContainer =
 
 const searchBar = 
 `
-<div class="m-3">
+<div class="m-3 d-none">
 <form class="d-flex" onsubmit="beginSearch(); return false">
   <input id="searchquery" class="form-control mr-2" type="search" placeholder="Search Quran Verse" aria-label="Search Quran Verse" />
   <button id="searchbtn" class="btn btn-outline-info" type="button" onclick="beginSearch(); return false">
