@@ -38,7 +38,7 @@ let linksArr = []
       h2.appendChild(aElem)
       document.querySelector('#mycontainer').appendChild(h2)
       }
-      document.querySelector('#mycontainer').appendChild(getQuranCardElem(dataArr[count],dirval,lang,isocodes))
+      document.querySelector('#mycontainer').appendChild(getQuranCardElem(dataArr[count],editionName,dirval,lang,isocodes))
 
       langCheck.push(lang)
       

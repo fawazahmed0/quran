@@ -116,12 +116,12 @@ function getElementFromHTML(htmlString){
 }
 
 // pass hadith object & get card element with all hadith info in it
-function getQuranCardElem(quran,dirval,lang,isocodes){
+function getQuranCardElem(quran,editionName,dirval,lang,isocodes){
   let lowerLang = lang.toLowerCase()
   let cardElem = getElementFromHTML(htmlQuranContainer).querySelector('.card')
   cardElem.querySelector('.card-text').innerText = quran.text
   let footerDiv = getElement('div',{class:"card-footer"})
-  let hrefVal = `quran:${quran.chapter}:${quran.verse}`
+  let hrefVal = `quran:${editionName}:${quran.chapter}:${quran.verse}`
     cardElem.querySelector('#footercontainer').appendChild(footerDiv.cloneNode())
   Array.from(cardElem.querySelectorAll('.card-footer'))[0].insertAdjacentHTML("beforeend", `<a href=#${hrefVal} class="link-dark text-decoration-none" >Chapter ${quran.chapter} ${arabicChapters[quran.chapter-1]}, Verse ${quran.verse}</a> <br>`);
     cardElem.setAttribute('id',hrefVal)
