@@ -14,7 +14,7 @@ let htmlFileNames = allFileNames.filter(e => !ignoreHTMLFiles.includes(e) && e.e
 //let jsFileNames = allFileNames.filter(e => !ignoreJSFiles.includes(e) && e.endsWith('.js'))
 
 let defaultTemplate = fs.readFileSync(path.join(templateDir, 'default.html')).toString()
-let commonCode = fs.readFileSync(path.join(templateDir, 'commoncode.js')).toString()
+//let commonCode = fs.readFileSync(path.join(templateDir, 'commoncode.js')).toString()
 
 let titles = {'index.html':'Read Quran','data.html':'Quran in multiple languages','single.html':'Verses List'}
 let footerclassobj = {}
