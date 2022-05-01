@@ -7,7 +7,7 @@ async function ready() {
   let verse = params.get("verse")
 
   let [editionsJSON, isocodes] = await getJSON(['editions', 'isocodes/iso-codes'])
-  let edtionsLangArr = Object.values(editionsJSON).map(e => [e.name, e.language, e.direction])
+  let edtionsLangArr = Object.values(editionsJSON).map(e => [e.name, e.language, e.direction,e.author])
   let linksArr = []
   // Table of content
   let tableElem = getElementFromHTML(tableContainer).querySelector('.table')
@@ -29,7 +29,7 @@ async function ready() {
   let dataArr = await getJSON(linksArr)
   let count = 0
   let langCheck = []
-  for (let [editionName, lang, dirval] of edtionsLangArr) {
+  for (let [editionName, lang, dirval,authorName] of edtionsLangArr) {
     // create language heading only if one doesn't exists
     if (!langCheck.includes(lang)) {
       let h2 = getElement('h2', { id: lang.toLowerCase(), 'class': 'text-center' })
@@ -38,7 +38,7 @@ async function ready() {
       h2.appendChild(aElem)
       document.querySelector('#mycontainer').appendChild(h2)
     }
-    document.querySelector('#mycontainer').appendChild(getQuranCardElem(dataArr[count], editionName, dirval, lang, isocodes))
+    document.querySelector('#mycontainer').appendChild(getQuranCardElem(dataArr[count], editionName, dirval, lang,authorName, isocodes))
 
     langCheck.push(lang)
 
