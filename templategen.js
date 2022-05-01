@@ -16,7 +16,7 @@ let jsFileNames = allFileNames.filter(e => !ignoreJSFiles.includes(e) && e.endsW
 let defaultTemplate = fs.readFileSync(path.join(templateDir, 'default.html')).toString()
 let commonCode = fs.readFileSync(path.join(templateDir, 'commoncode.js')).toString()
 
-let titles = {'index.html':'Read Quran','data.html':'Quran in multiple languages','single.html':'Verses List'}
+let titles = {'index.html':'Read Quran','data.html':'Quran in Multiple Languages','single.html':'Verses List'}
 let footerclassobj = {}
 
 let seoignore = `<meta name="robots" content="noindex">`
