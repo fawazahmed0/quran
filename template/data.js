@@ -6,6 +6,10 @@ async function ready() {
   let chapter = params.get("chapter");
   let verse = params.get("verse")
 
+  if(chapter === null || verse === null)
+  return
+
+  showSpinningWheel('#mycontainer','beforeend')
   let [editionsJSON, isocodes] = await getJSON(['editions', 'isocodes/iso-codes'])
   let edtionsLangArr = Object.values(editionsJSON).map(e => [e.name, e.language, e.direction,e.author])
   let linksArr = []
@@ -21,11 +25,14 @@ async function ready() {
     tr.appendChild(td)
     tableElem.querySelector('tbody').appendChild(tr)
   }
+  removeSpinningWheel()
+
   // Create endpoints for parallel fetch
   for (let [editionName] of edtionsLangArr)
     linksArr.push(`editions/${editionName}/${chapter}/${verse}`)
 
   document.querySelector('#mycontainer').appendChild(tableElem)
+  showSpinningWheel('#mycontainer','beforeend')
   let dataArr = await getJSON(linksArr)
   let count = 0
   let langCheck = []
@@ -45,6 +52,7 @@ async function ready() {
     count++;
   }
 
+  removeSpinningWheel()
 
 
 }

@@ -131,7 +131,7 @@ window.showTranslations = async function showTranslations() {
   if (selectedValues.length > 0) {
     Cookies.set('editions', JSON.stringify(selectedValues), { expires: 1000, path: '' })
     Cookies.set('chapter', chapterNo, { expires: 1000, path: '' })
-    showSpinningWheel()
+    showSpinningWheel('#versescolumn','afterbegin')
   }
 
   for (const edName of selectedValues) {
@@ -185,22 +185,7 @@ async function getChapterArr(endpointsArr) {
 }
 
 
-// Show as loading spinning wheel,only if there isn't any other
-function showSpinningWheel() {
-  if ($('#spinningwheel').length === 0) {
-    $('#versescolumn').prepend(`<div  id="spinningwheel">
-    <div class="text-center">
-      <div class="spinner-border m-5" role="status">
-      </div>
-      </div>
-      </div>
-      `)
-  }
-}
 
-function removeSpinningWheel() {
-  $('#spinningwheel').remove()
-}
 
 
 

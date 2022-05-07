@@ -1,6 +1,6 @@
 
 async function ready() {
-
+    showSpinningWheel('#mycontainer','beforeend')
     let UL = getElement('ul', { class: 'list-group' })
     for (let [i, j] of mappings) {
         let LI = getElement('li', { class: 'list-group-item text-center' })
@@ -13,6 +13,7 @@ async function ready() {
         UL.appendChild(LI)
 
     }
+    removeSpinningWheel()
     document.querySelector('#mycontainer').appendChild(UL)
 }
 
