@@ -11,11 +11,12 @@ async function ready() {
 
   showSpinningWheel('#mycontainer','beforeend')
   let [editionsJSON, isocodes] = await getJSON(['editions', 'isocodes/iso-codes'])
-  let edtionsLangArr = Object.values(editionsJSON).map(e => [e.name, e.language, e.direction,e.author])
+  // sorted by language
+  let edtionsLangArr = Object.values(editionsJSON).map(e => [e.name, e.language, e.direction,e.author]).sort((a,b)=>a[1].localeCompare(b[1]))
   let linksArr = []
   // Table of content
   let tableElem = getElementFromHTML(tableContainer).querySelector('.table')
-  let uniqueLangs = [...new Set(edtionsLangArr.map(e => e[1]))]
+  let uniqueLangs = [...new Set(edtionsLangArr.map(e => e[1]))].sort()
   for (let lang of uniqueLangs) {
     let aElem = getElement('a', { href: `#${lang.toLowerCase()}` })
     aElem.innerText = lang
