@@ -1,9 +1,7 @@
 name: Deploy real prod
 
 on:
-  push:
-    branches:
-      - main
+
   workflow_dispatch:
 
 jobs:
