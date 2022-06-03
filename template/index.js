@@ -9,7 +9,7 @@
 // import $ from 'jquery'
 // import Cookies from 'js-cookie'
 
-
+import './commoncode'
 
 const defaultEdition = 'eng-mustafakhattabg'
 
@@ -19,9 +19,10 @@ let editionsJSON
 
 // call this only once
 async function oneTimeFunc() {
-  document.querySelector('#mycontainer').insertAdjacentHTML('afterbegin', searchBar);
+  
+  document.querySelector('#mycontainer').insertAdjacentHTML('afterbegin', window.searchBar);
   // Editions JSON from quran api
-  [editionsJSON] = await getJSON(['editions'])
+  [editionsJSON] = await window.getJSON(['editions'])
   // Create the dropdown
   await createDropdown()
 
@@ -47,7 +48,7 @@ async function oneTimeFunc() {
 
 function setInitEditions() {
   // Set by url
-  const currenturl = new URL(window.location)
+  const currenturl = new window.URL(window.location)
   const urlparams = currenturl.searchParams
 
   if (urlparams.get('editions') !== null) {
@@ -161,7 +162,7 @@ window.showTranslations = async function showTranslations() {
 function initializeTooltip() {
   const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
   const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl)
+    return new window.bootstrap.Tooltip(tooltipTriggerEl)
   })
 }
 
@@ -180,7 +181,7 @@ function createVerseDropDown() {
 // Fetches the translationLinks and returns the translations in optimized array form
 // Also assigns it to global translationsArr
 async function getChapterArr(endpointsArr) {
-  const transJSON = await getJSON(endpointsArr)
+  const transJSON = await window.getJSON(endpointsArr)
   return transJSON.map(e => e.chapter.map(e => e.text))
 }
 
