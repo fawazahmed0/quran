@@ -17,9 +17,10 @@ let htmlFileNames = allFileNames.filter(e => e.endsWith('.html') && !e.endsWith(
 let defaultTemplate = fs.readFileSync(path.join(templateDir, ignoreHTMLFiles[0])).toString()
 
 
-let titles = {'index.html':'Read Quran','data.html':'Quran in Multiple Languages'}
+let titles = {}
 titles[path.join('list','index.html')] = 'Verses List'
-let footerclassobj = {}
+titles['index.html'] = 'Read Quran'
+
 
 
 const CHAPTER_LENGTH = 114
@@ -30,7 +31,7 @@ const chaplength = [7, 286, 200, 176, 120, 165, 206, 75, 129, 109, 123, 111, 43,
 
 for (let i = 1; i <= CHAPTER_LENGTH; i++) {
   for (let j = 1; j <= chaplength[i - 1]; j++) {
-    titles[`${i}${path.sep}${j.html}`] = `${arabicChapters[i - 1]} Verse ${j}`
+    titles[`${i}${path.sep}${j}.html`] = `Chapter ${i} ${arabicChapters[i - 1]} Verse ${j}`
   }
 }
 
@@ -39,7 +40,8 @@ let metaheadignore = {}
 let titleKeys = Object.keys(titles)
 for (let name of htmlFileNames){
     let innercode = fs.readFileSync(name).toString()
-    var rendered = Mustache.render(defaultTemplate, { title: titleKeys.find(e=>name.endsWith(e)) || path.parse(name).name, footerclass: footerclassobj[name] , containercode:innercode, meta:{filename:name.replace(templateDir,"").replaceAll(path.sep,'/')} });
+    let titleVal = titles[titleKeys.find(e=>name.endsWith(e))]
+    var rendered = Mustache.render(defaultTemplate, { title: titleVal || path.parse(name).name , containercode:innercode, meta:{filename:name.replace(templateDir,"").replaceAll(path.sep,'/')} });
     fs.outputFileSync(name.replace(templateDir,codeDir), rendered)
 }
 
