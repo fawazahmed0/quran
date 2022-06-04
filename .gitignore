@@ -6,4 +6,5 @@ newstr
 dist/
 node_modules/
 .parcel-cache/
-template/list/
+template/list/*
+!template/list/index.html
