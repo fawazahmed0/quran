@@ -1,7 +1,8 @@
 name: Deploy real prod
 
 on:
-
+  schedule:
+    - cron: '0 0 1 * *'  # every day at midnight
   workflow_dispatch:
 
 jobs:
