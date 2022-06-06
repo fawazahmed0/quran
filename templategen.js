@@ -17,7 +17,7 @@ let htmlFileNames = allFileNames.filter(e => e.endsWith('.html') && !e.endsWith(
 let defaultTemplate = fs.readFileSync(path.join(templateDir, ignoreHTMLFiles[0])).toString()
 
 
-let titles = {}
+let titles = { '404.html' : 'Page not found'}
 titles[path.join('list','index.html')] = 'Verses List'
 titles['index.html'] = 'Read Quran'
 
