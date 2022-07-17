@@ -21,7 +21,8 @@ let titles = { '404.html' : 'Page not found'}
 titles[path.join('list','index.html')] = 'Verses List'
 titles['index.html'] = 'Read Quran'
 
-
+let relativeURL = {}
+relativeURL[path.join('list','index.html')] = '../'
 
 const CHAPTER_LENGTH = 114
 // Creating line to [chapter,verseNo] mappings
@@ -32,6 +33,7 @@ const chaplength = [7, 286, 200, 176, 120, 165, 206, 75, 129, 109, 123, 111, 43,
 for (let i = 1; i <= CHAPTER_LENGTH; i++) {
   for (let j = 1; j <= chaplength[i - 1]; j++) {
     titles[`${i}${path.sep}${j}.html`] = `Chapter ${i} ${arabicChapters[i - 1]} Verse ${j}`
+    relativeURL[`${i}${path.sep}${j}.html`] = '../../'
   }
 }
 
@@ -40,8 +42,10 @@ let metaheadignore = {}
 let titleKeys = Object.keys(titles)
 for (let name of htmlFileNames){
     let innercode = fs.readFileSync(name).toString()
-    let titleVal = titles[titleKeys.find(e=>name.endsWith(e))]
-    var rendered = Mustache.render(defaultTemplate, { title: titleVal || path.parse(name).name , containercode:innercode, meta:{filename:name.replace(templateDir,"").replaceAll(path.sep,'/')} });
+    let titleKey = titleKeys.find(e=>name.endsWith(e))
+    let titleVal = titles[titleKey]
+    let relativeVal = relativeURL[titleKey]
+    var rendered = Mustache.render(defaultTemplate, { title: titleVal || path.parse(name).name, relative:relativeVal, containercode:innercode, meta:{filename:name.replace(templateDir,"").replaceAll(path.sep,'/')} });
     fs.outputFileSync(name.replace(templateDir,codeDir), rendered)
 }
 
