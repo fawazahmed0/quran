@@ -89,7 +89,7 @@ function setInitVerse() {
   const chapterVerse = window.location.hash.substring(1).split(':')
   // scroll to specific verse if it existed in link hash
   if (chapterVerse.length > 1) {
-    window.location = `${window.location.search}${getHashTextFragment()}`
+    window.location.hash = getHashTextFragment()
     $('#verse option[value="' + window.location.hash + '"]').prop('selected', true)
   }
 }
