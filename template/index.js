@@ -39,7 +39,7 @@ async function oneTimeFunc() {
   // In chrome the onchange event on select verse option doesn't work due to select2
   // So doing that thing again in here
   $('#verse').on("select2:select", function (e) {
-    location = window.location.hash
+    location = getHashTextFragment()
   });
 
 }
@@ -90,7 +90,7 @@ function setInitVerse() {
   // scroll to specific verse if it existed in link hash
   if (chapterVerse.length > 1) {
     window.location = getHashTextFragment()
-    $('#verse option[value="' + window.location.hash + '"]').prop('selected', true)
+    $('#verse option[value="' + getHashTextFragment() + '"]').prop('selected', true)
   }
 }
 
