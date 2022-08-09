@@ -89,7 +89,7 @@ function setInitVerse() {
   const chapterVerse = window.location.hash.substring(1).split(':')
   // scroll to specific verse if it existed in link hash
   if (chapterVerse.length > 1) {
-    window.location = window.location.hash
+    window.location = `${window.location.search}${getHashTextFragment()}`
     $('#verse option[value="' + window.location.hash + '"]').prop('selected', true)
   }
 }
@@ -185,6 +185,15 @@ async function getChapterArr(endpointsArr) {
   return transJSON.map(e => e.chapter.map(e => e.text))
 }
 
+// Hash with Text Fragment
+function getHashTextFragment(){
+  let hashWithFragment = window.location.hash
+  // https://web.dev/text-fragments/#obtaining-text-fragments-for-analytics-purposes
+  try{
+    hashWithFragment =  new URL(performance.getEntries().find(({ type }) => type === 'navigate').name).hash
+  }catch(e){}
+  return hashWithFragment
+}
 
 
 
