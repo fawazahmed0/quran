@@ -61,6 +61,11 @@
 
         gtag('config', 'UA-158869197-1');
     </script>
+    
+    <script type="module">
+     if (!('fragmentDirective' in Location.prototype) && !('fragmentDirective' in document)) 
+          import('https://unpkg.com/text-fragments-polyfill')
+    </script>
 
     <link rel="icon" type="image/x-icon" href="{{{relative}}}icons/favicon.ico">
     <link rel="manifest" href="{{{relative}}}manifest.webmanifest" />
