@@ -63,12 +63,14 @@
     </script>
     
     <script type="module">
+
         if (!('fragmentDirective' in Location.prototype) &&
             !('fragmentDirective' in document)) {
             let src = 'https://unpkg.com/text-fragments-polyfill'
           import(src)
             }
       </script>
+
 
     <link rel="icon" type="image/x-icon" href="{{{relative}}}icons/favicon.ico">
     <link rel="manifest" href="{{{relative}}}manifest.webmanifest" />
