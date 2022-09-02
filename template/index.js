@@ -45,6 +45,7 @@ async function oneTimeFunc() {
   if(hashValue)
   location = hashValue
 
+  await new Promise(r => setTimeout(r, 2000));
 
   addEventListener('hashchange', async (event) => {
     let [newURLChapter, newURLVerse ]= new URL(event.newURL).hash.substring(1).split(':')
