@@ -67,7 +67,6 @@ async function oneTimeFunc() {
     $('#verse').trigger('change'); 
     }
    });
-
 }
 
 
@@ -99,6 +98,12 @@ function setInitChapter() {
     $('#chapter option[value="' + chapterVerse[0] + '"]').prop('selected', true)
     return
   }
+    // Set chapter by param
+    if ((new URL(window.location)).searchParams.get('chapter') !== null) {
+      const chapter = (new URL(window.location)).searchParams.get('chapter')
+      $('#chapter option[value="' + chapter + '"]').prop('selected', true)
+      return
+    }
   // Set chapter by cookie
   const chapterCookie = Cookies.get('chapter')
   if (chapterCookie !== undefined) {
@@ -186,6 +191,7 @@ window.showTranslations = async function showTranslations(event) {
   // Add editions in current url
   let currenturl = new window.URL(window.location)
   currenturl.searchParams.set('editions', selectedValues.join(','));
+  currenturl.searchParams.set('chapter', document.querySelector('#chapter').value);
   //let [chapterValue ]= document.querySelector('#verse').value.substring(1).split(':')
 
   if(event?.id != "translationdropdown")
