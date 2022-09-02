@@ -9,7 +9,7 @@
 // import $ from 'jquery'
 // import Cookies from 'js-cookie'
 
-import './commoncode'
+import './commoncode.js'
 
 const defaultEdition = 'eng-mustafakhattabg'
 
