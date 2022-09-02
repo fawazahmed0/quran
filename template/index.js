@@ -31,7 +31,7 @@ async function oneTimeFunc() {
   setInitEditions()
   setInitChapter()
   // show the translations on cookie/link selected values
-  await window.showTranslations({initial: true})
+  await window.showTranslations()
 
   setInitVerse()
     // Add searchable select
@@ -198,8 +198,6 @@ window.showTranslations = async function showTranslations(event) {
   if(event?.id != "translationdropdown")
   currenturl.hash = window.currentVerse ? `${document.querySelector('#chapter').value}:${window.currentVerse}` : document.querySelector('#chapter').value
 
-  //Don't change the url on first page load
-  if(event?.initial !== true)
   // Change url without reload
   window.history.pushState({}, "", currenturl);
 
