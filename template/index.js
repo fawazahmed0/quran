@@ -188,8 +188,8 @@ window.showTranslations = async function showTranslations(event) {
   currenturl.searchParams.set('editions', selectedValues.join(','));
   //let [chapterValue ]= document.querySelector('#verse').value.substring(1).split(':')
 
+  if(event?.id != "translationdropdown")
   currenturl.hash = window.currentVerse ? `${document.querySelector('#chapter').value}:${window.currentVerse}` : document.querySelector('#chapter').value
-  
 
   //Don't change the url on first page load
   if(event?.initial !== true)
