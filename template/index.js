@@ -16,7 +16,8 @@ const defaultEdition = 'eng-mustafakhattabg'
 
 
 let editionsJSON
-
+// Lock to wait for translations to show
+let lock = false
 // call this only once
 async function oneTimeFunc() {
   
@@ -30,17 +31,42 @@ async function oneTimeFunc() {
   setInitEditions()
   setInitChapter()
   // show the translations on cookie/link selected values
-  await window.showTranslations()
+  await window.showTranslations({initial: true})
+
   setInitVerse()
-  // Add searchable select
+    // Add searchable select
   $('select').select2({
-    theme: 'bootstrap4',
+      theme: 'bootstrap4',
   });
-  // In chrome the onchange event on select verse option doesn't work due to select2
-  // So doing that thing again in here
-  $('#verse').on("select2:select", function (e) {
-    location = location.hash
-  });
+
+
+
+  let hashValue = getHashTextFragment()
+  if(hashValue)
+  location = hashValue
+
+
+  addEventListener('hashchange', async (event) => {
+    let [newURLChapter, newURLVerse ]= new URL(event.newURL).hash.substring(1).split(':')
+    let [oldURLChapter, oldURLVerse ]= new URL(event.oldURL).hash.substring(1).split(':')
+    if(newURLChapter && newURLChapter!=oldURLChapter){
+      window.currentVerse = newURLVerse
+      $('#chapter option[value="' + newURLChapter + '"]').prop('selected', true)
+      $('#chapter').trigger('change'); 
+      lock = true
+      while(lock){
+        await new Promise(r => setTimeout(r, 500));
+      }
+      if(newURLVerse){
+      $('#verse option[value="' + new URL(event.newURL).hash + '"]').prop('selected', true)
+      $('#verse').trigger('change'); 
+      }
+    }
+     if(newURLChapter==oldURLChapter && newURLVerse && newURLVerse!= oldURLVerse){
+     $('#verse option[value="' + new URL(event.newURL).hash + '"]').prop('selected', true)
+    $('#verse').trigger('change'); 
+    }
+   });
 
 }
 
@@ -88,10 +114,8 @@ function setInitVerse() {
   // Stores the chapter & verse from link hash , eg: #4:3
   const chapterVerse = window.location.hash.substring(1).split(':')
   // scroll to specific verse if it existed in link hash
-  if (chapterVerse.length > 1) {
-    window.location.hash = getHashTextFragment()
+  if (chapterVerse.length > 1) 
     $('#verse option[value="' + window.location.hash + '"]').prop('selected', true)
-  }
 }
 
 // Creates and add listing to the dropdown based on editions.json
@@ -114,7 +138,8 @@ async function createDropdown() {
   for (let i = 1; i <= CHAPTER_LENGTH; i++) { $('#chapter').append('<option value="' + i + '">' + i + ' - ' + arabicChapters[i - 1] + ' (' + englishChapters[i - 1] + ')</option>') }
 }
 
-window.showTranslations = async function showTranslations() {
+window.showTranslations = async function showTranslations(event) {
+  lock = true
   // Not a great way to do
   $('#versescolumn').empty()
   // Add the card element, so verses get shown in cards
@@ -157,6 +182,25 @@ window.showTranslations = async function showTranslations() {
 
   initializeTooltip()
   createVerseDropDown()
+
+  // Add editions in current url
+  let currenturl = new window.URL(window.location)
+  currenturl.searchParams.set('editions', selectedValues.join(','));
+  //let [chapterValue ]= document.querySelector('#verse').value.substring(1).split(':')
+
+  currenturl.hash = window.currentVerse ? `${document.querySelector('#chapter').value}:${window.currentVerse}` : document.querySelector('#chapter').value
+  
+
+  //Don't change the url on first page load
+  if(event?.initial !== true)
+  // Change url without reload
+  window.history.pushState({}, "", currenturl);
+
+  // Set variables to initial value
+  window.currentVerse=undefined;
+  lock = false
+
+
 }
 
 function initializeTooltip() {
@@ -187,12 +231,12 @@ async function getChapterArr(endpointsArr) {
 
 // Hash with Text Fragment
 function getHashTextFragment(){
-  let hashWithFragment = window.location.hash
+  let hashWithFragment;
   // https://web.dev/text-fragments/#obtaining-text-fragments-for-analytics-purposes
   try{
     hashWithFragment =  new URL(performance.getEntries().find(({ type }) => type === 'navigate').name).hash
   }catch(e){}
-  return hashWithFragment
+  return hashWithFragment || window.location.hash
 }
 
 
