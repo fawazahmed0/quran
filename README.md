@@ -5,7 +5,7 @@
 </p>
 
 
-**In the name of God, who have guided me to do this work**
+**In the name of God, who has guided me to do this work**
 
 Quran translations in 90+ languages is available at:<br> [fawazahmed0.github.io/quran](https://fawazahmed0.github.io/quran)
 
