@@ -14,7 +14,7 @@ You can also install the app from [play store](https://play.google.com/store/app
 ---
 #### Usage:
 To open chapter 5:<br>
-[fawazahmed0.github.io/quran#5](fawazahmed0.github.io/quran#5)
+[fawazahmed0.github.io/quran#5](https://fawazahmed0.github.io/quran#5)
 
 To open chapter 5 verse 36:<br>
 [fawazahmed0.github.io/quran#5:36](https://fawazahmed0.github.io/quran#5:36)
