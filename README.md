@@ -24,6 +24,10 @@ To open a specific Editions based on [quran-api editions](https://cdn.jsdelivr.n
 <br>
 [fawazahmed0.github.io/quran?editions=ara-qurandoori,ara-quranindopak#5:36](https://fawazahmed0.github.io/quran?editions=ara-qurandoori,ara-quranindopak#5:36)
 
+Link to [highlight](https://support.google.com/chrome/answer/10256233) feature is supported:
+https://fawazahmed0.github.io/quran/?editions=ara-quranindopak%2Ceng-mustafakhattabg&chapter=25#25:~:text=We%20come%20to%20you%20with%20the%20right%20refutation%20and%20the%20best%20explanation
+
+
 #### How it works:
 The website uses [Free Quran API](https://github.com/fawazahmed0/quran-api) to show the translations
 
