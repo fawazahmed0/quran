@@ -137,7 +137,7 @@ window.getQuranCardElem = function (quran, editionName, dirval, lang, authorName
 window.beginSearch = function () {
   let newparams = new window.URLSearchParams();
   let searchquery = document.getElementById('searchquery').value
-  newparams.set('q', `${searchquery} path:quran`)
+  newparams.set('q', `${searchquery} path:/Quran`)
   window.open(`https://github.com/fawazahmed0/quran-hadith-search/search?${newparams.toString()}`, '_blank');
   window.open(`https://github.com/fawazahmed0/quran-hadith-search/search?${newparams.toString()}&type=wikis`, '_blank');
 }
