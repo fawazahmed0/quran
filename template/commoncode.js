@@ -135,11 +135,13 @@ window.getQuranCardElem = function (quran, editionName, dirval, lang, authorName
 }
 
 window.beginSearch = function () {
-  let newparams = new window.URLSearchParams();
-  let searchquery = document.getElementById('searchquery').value
-  newparams.set('q', `${searchquery}`)
-  window.open(`https://github.com/fawazahmed0/quran-hadith-search/search?${newparams.toString()}`, '_blank');
-  window.open(`https://github.com/fawazahmed0/quran-hadith-search/search?${newparams.toString()}&type=wikis`, '_blank');
+            let newparams = new window.URLSearchParams();
+            let searchquery = document.getElementById('searchquery').value
+            newparams.set('q', `repo:fawazahmed0/quran-hadith-search ${searchquery.trim()}`)
+            let link2 = `https://github.com/search?${newparams.toString()}&type=wikis`
+            newparams.set('q', `repo:fawazahmed0/quran-hadith-search path:/^Quran\\// ${searchquery.trim()}`)
+            window.open(`https://github.com/search?${newparams.toString()}&type=code`)
+            window.open(link2)
 }
 
 
