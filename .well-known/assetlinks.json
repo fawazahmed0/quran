@@ -1,0 +1,7 @@
+[{
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target" : { "namespace": "android_app", "package_name": "io.github.fawazahmed0.twa",
+                     "sha256_cert_fingerprints": ["F4:FA:E8:89:3F:C0:83:A7:19:AE:4D:51:98:28:66:D0:96:08:39:6B:1A:A4:EA:D4:49:58:37:4D:E5:0B:F5:71",
+                                                  "F6:ED:AA:4A:3E:3F:6B:1E:E1:56:8F:B1:64:46:59:18:BD:6D:2D:F3:75:AB:65:92:E8:7C:5E:1A:85:B4:4B:26"] }
+      }
+]
