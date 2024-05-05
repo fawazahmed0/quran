@@ -9,7 +9,7 @@
 
 Quran translations in 90+ languages is available at:<br> [fawazahmed0.github.io/quran](https://fawazahmed0.github.io/quran)
 
-You can also install the app from [play store](https://play.google.com/store/apps/details?id=io.github.fawazahmed0.twa)
+You can also install the app from [play store](https://play.google.com/store/apps/details?id=io.github.fawazahmed0.twa.quran)
 
 ---
 #### Usage:
